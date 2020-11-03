@@ -35,11 +35,21 @@ RSpec.describe Pivot::Tracker do
     it "checks if johnyyhair@example.com is on the list of people that pivoted" do
       expect(Pivot::Tracker.pivoted?(items, "johnyyhair@example.com")).to be false
     end
-  end
+  end 
 
   describe ".total_points" do
     it "sums the total of points that was pivoted" do
-      expect(Pivot::Tracker.total_points(items)).to eq(13)
+      # If I follow the specification for getting an item in `.item_for` spec and get the last item for each assignee, 13 would be the total
+      # [
+      #   { name: "EREC-10", assignee: 'smith@example.com', points: 2 },
+      #   { name: "EREC-11", assignee: 'bruno@example.com', points: 5 },
+      #   { name: "EREC-12", assignee: 'cesar@example.com',  points: 3},
+      #   { name: "EREC-13", assignee: 'genericman@example.com', points: 2},
+      #   { name: "EREC-14", assignee: 'johndough@example.com',  points: 1}
+      # ]
+      # expect(Pivot::Tracker.total_points(items)).to eq(13)
+      # If I simply add the total points in the items array, the total should be 20
+      expect(Pivot::Tracker.total_points(items)).to eq(20)
     end
 
     it "sums the total points that an assignee pivoted" do

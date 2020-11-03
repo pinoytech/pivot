@@ -13,10 +13,17 @@ module Pivot
         items.any? { |item| item[:assignee] == email }
       end
 
-      def total_points(items, assignee: nil)
-        return items.reverse.uniq { |item| item[:assignee] }.sum { |item| item[:points] } if assignee.nil?
+      # Refer to `00_track_pivots_spec.rb` comments in line 42
+      # def total_points(items, assignee: nil)
+      #   return items.reverse.uniq { |item| item[:assignee] }.sum { |item| item[:points] } if assignee.nil?
 
-        items.reverse.select { |item| item[:assignee] == assignee }.sum { |item| item[:points] }
+      #   items.reverse.select { |item| item[:assignee] == assignee }.sum { |item| item[:points] }
+      # end
+
+      def total_points(items, assignee: nil)
+        return items.sum { |item| item[:points] } if assignee.nil?
+
+        items.select { |item| item[:assignee] == assignee }.sum { |item| item[:points] }
       end
 
       def unique_assignees(items)
